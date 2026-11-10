@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071321">
+  <title>AIR COMBAT — Take the Skies</title>
+  <meta name="description" content="Enter the cockpit, master the skies, and join the fight in AIR COMBAT.">
+  <style>
+    :root {
+      --bg:#071321; --panel:#10243a; --cyan:#62e6ff; --orange:#ff9b54;
+      --text:#f4f8fc; --muted:#a9bacb; --line:rgba(255,255,255,.13);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1160px,92%);margin:auto}
+    header{position:absolute;z-index:5;top:0;left:0;width:100%;border-bottom:1px solid var(--line)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:900;letter-spacing:2px;font-size:1.25rem}
+    .brand span{color:var(--cyan)}
+    .links{display:flex;gap:28px;color:#d5e0eb;font-size:.9rem}
+    .links a:hover{color:var(--cyan)}
+    .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:4px;font-weight:800;letter-spacing:.7px}
+    .nav-cta,.btn.primary{background:var(--cyan);color:#061522}
+    .btn.secondary{border:1px solid rgba(255,255,255,.45);background:rgba(4,15,27,.28)}
+    .hero{min-height:760px;display:flex;align-items:center;position:relative;overflow:hidden;
+      background:radial-gradient(ellipse at 76% 44%,rgba(38,129,176,.36),transparent 42%),
+      linear-gradient(110deg,#071321 5%,rgba(7,19,33,.88) 45%,rgba(7,19,33,.34)),
+      linear-gradient(180deg,#18334d,#071321 90%)}
+    .hero:before{content:"";position:absolute;inset:0;opacity:.24;background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+      background-size:58px 58px;mask-image:linear-gradient(to bottom,black,transparent)}
+    .hero:after{content:"";position:absolute;width:680px;height:250px;right:-30px;top:260px;
+      border:1px solid rgba(98,230,255,.25);transform:rotate(-18deg);border-radius:50%;
+      box-shadow:0 0 70px rgba(98,230,255,.12),inset 0 0 70px rgba(98,230,255,.08)}
+    .hero-content{position:relative;z-index:2;padding-top:100px;max-width:640px}
+    .eyebrow{color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:3px;text-transform:uppercase}
+    h1{font-size:clamp(3.2rem,8vw,6.7rem);line-height:.92;margin:18px 0 22px;font-weight:950;letter-spacing:-3px}
+    h1 span{color:var(--cyan)}
+    .lead{font-size:1.12rem;line-height:1.7;color:#c3d0dd;max-width:540px}
+    .actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+    .plane-art{position:absolute;z-index:1;right:3%;top:26%;width:min(53%,650px);height:390px;display:grid;place-items:center}
+    .plane-art svg{width:100%;height:100%;filter:drop-shadow(0 25px 28px rgba(0,0,0,.45))}
+    .hud{position:absolute;right:7%;bottom:11%;z-index:2;border:1px solid rgba(98,230,255,.4);padding:14px 18px;background:rgba(3,14,26,.65);backdrop-filter:blur(8px);font-size:.75rem;letter-spacing:1.5px;color:var(--cyan)}
+    section{padding:90px 0}
+    .section-head{text-align:center;max-width:700px;margin:0 auto 44px}
+    h2{font-size:clamp(2rem,4vw,3.2rem);margin:10px 0 14px;letter-spacing:-1px}
+    .section-head p,.feature p{color:var(--muted);line-height:1.7}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feature{padding:28px;background:linear-gradient(145deg,#122a42,#0b1c2e);border:1px solid var(--line);min-height:220px}
+    .feature .num{color:var(--cyan);font-size:.78rem;letter-spacing:2px;font-weight:900}
+    .feature h3{font-size:1.3rem;margin:18px 0 8px}
+    .gameplay{background:#0a1a2a}
+    .showcase{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+    .screen{min-height:330px;border:1px solid rgba(98,230,255,.3);background:
+      radial-gradient(ellipse at 50% 42%,rgba(76,185,225,.28),transparent 45%),
+      linear-gradient(145deg,#1b3c56,#091827);display:grid;place-items:center;position:relative;overflow:hidden}
+    .screen:before{content:"";position:absolute;width:120%;height:1px;background:var(--cyan);transform:rotate(-24deg);opacity:.45}
+    .screen svg{width:80%;max-height:240px;position:relative;filter:drop-shadow(0 15px 16px #0008)}
+    .showcase-copy p{color:var(--muted);line-height:1.8}
+    .showcase-copy ul{padding-left:20px;color:#d7e2ec;line-height:2}
+    .cta{text-align:center;background:radial-gradient(ellipse at center,rgba(44,134,174,.24),transparent 65%)}
+    .cta p{color:var(--muted);margin-bottom:28px}
+    footer{border-top:1px solid var(--line);padding:25px 0;color:#8fa2b5;font-size:.82rem}
+    footer .wrap{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    @media(max-width:800px){.links{display:none}.hero{min-height:800px;align-items:flex-start}.hero-content{padding-top:150px}.plane-art{top:auto;bottom:65px;right:0;width:100%;height:270px;opacity:.8}.hud{bottom:25px;right:5%}.features{grid-template-columns:1fr}.showcase{grid-template-columns:1fr}.hero:after{top:440px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#">AIR<span>COMBAT</span></a>
+      <div class="links"><a href="#features">FEATURES</a><a href="#gameplay">THE GAME</a><a href="#play">GET STARTED</a></div>
+      <a class="nav-cta" href="#play">TAKE OFF</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="eyebrow">A new flight experience</div>
+        <h1>TAKE<br>THE <span>SKIES.</span></h1>
+        <p class="lead">Climb into the cockpit, master high-speed flight, and take on thrilling aerial missions. Your next adventure starts above the clouds.</p>
+        <div class="actions">
+          <!-- Replace # with your real game download or store page URL -->
+          <a class="btn primary" href="#play">DISCOVER THE GAME</a>
+          <a class="btn secondary" href="#features">EXPLORE FEATURES</a>
+        </div>
+      </div>
+    </div>
+    <div class="plane-art" aria-hidden="true">
+      <svg viewBox="0 0 700 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="metal" x1="100" y1="60" x2="560" y2="330" gradientUnits="userSpaceOnUse"><stop stop-color="#f3fbff"/><stop offset=".42" stop-color="#7fa9c3"/><stop offset="1" stop-color="#29465e"/></linearGradient></defs>
+        <path d="M355 25 L391 150 L640 265 L637 294 L389 235 L372 350 L423 375 L419 389 L350 367 L281 389 L277 375 L328 350 L311 235 L63 294 L60 265 L309 150 Z" fill="url(#metal)" stroke="#b8efff" stroke-width="2"/>
+        <path d="M355 25 L350 367 L328 350 L311 235 L309 150 Z" fill="#e7f7ff" opacity=".45"/>
+        <path d="M324 144 Q350 95 376 144 L366 214 L334 214 Z" fill="#12344d" stroke="#9beaff" stroke-width="2"/>
+        <path d="M350 25 L355 25 L391 150 L309 150 Z" fill="#d9f4ff" opacity=".22"/>
+        <path d="M60 265 L309 150 M637 294 L391 150" stroke="#d7f7ff" stroke-width="2" opacity=".55"/>
+      </svg>
+    </div>
+    <div class="hud">FLIGHT SYSTEMS ONLINE&nbsp; // &nbsp;READY</div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Built for the sky</div>
+        <h2>YOUR MISSION. YOUR SKIES.</h2>
+        <p>Discover the features that make every flight an adventure. Replace these sample features with the real features in your game.</p>
+      </div>
+      <div class="features">
+        <article class="feature"><div class="num">01 / FLIGHT</div><h3>Master the Controls</h3><p>Take control of your aircraft and learn to maneuver through the skies with confidence.</p></article>
+        <article class="feature"><div class="num">02 / MISSIONS</div><h3>Answer the Call</h3><p>Fly exciting missions, complete objectives, and push your piloting skills further.</p></article>
+        <article class="feature"><div class="num">03 / MULTIPLAYER</div><h3>Fly Together</h3><p>Team up with friends or challenge other pilots if multiplayer is available in your build.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="gameplay" id="gameplay">
+    <div class="wrap showcase">
+      <div class="screen" aria-label="Decorative aircraft illustration">
+        <svg viewBox="0 0 500 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M250 15 L278 104 L468 190 L464 210 L276 165 L265 232 L303 250 L300 260 L250 244 L200 260 L197 250 L235 232 L224 165 L36 210 L32 190 L222 104 Z" fill="#b9d8e9" stroke="#62e6ff" stroke-width="2"/>
+          <path d="M250 15 L250 244 L235 232 L224 165 L222 104 Z" fill="#effaff" opacity=".55"/>
+          <path d="M228 102 Q250 68 272 102 L265 147 L235 147 Z" fill="#173c57"/>
+        </svg>
+      </div>
+      <div class="showcase-copy">
+        <div class="eyebrow">Enter the cockpit</div>
+        <h2>THE SKY IS YOURS TO COMMAND.</h2>
+        <p>Get ready for fast-paced aerial action. Show players what makes your aircraft game special with screenshots, gameplay footage, and details about your missions.</p>
+        <ul><li>Aircraft and customization</li><li>Maps, missions, and game modes</li><li>Controls designed for your play style</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="play">
+    <div class="wrap">
+      <div class="eyebrow">Your next flight awaits</div>
+      <h2>READY FOR TAKEOFF?</h2>
+      <p>Add your real download, itch.io, Steam, or game website link to the button below.</p>
+      <!-- Replace the # below with your real download/store URL -->
+      <a class="btn primary" href="mailto:YOUR-EMAIL@example.com?subject=AIR%20COMBAT%20Game">CONTACT THE DEVELOPER</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><div>© 2026 AIR COMBAT. Air Combat</div><div>Independent game project · All rights reserved</div></div></footer>
+</body>
+</html>
